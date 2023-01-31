@@ -3,39 +3,23 @@ title: Introduction
 type: docs
 ---
 
-# Acerbo datus maxime
+# About Me
 
 {{< columns >}}
-## Astris ipse furtiva
 
-Est in vagis et Pittheus tu arge accipiter regia iram vocatur nurus. Omnes ut
-olivae sensit **arma sorori** deducit, inesset **crudus**, ego vetuere aliis,
-modo arsit? Utinam rapta fiducia valuere litora _adicit cursu_, ad facies
+<img src="alex.jpeg" width="300" height="48" title="Image of Alex Gebhard" alt="Image of Alex Gebhard">
 
 <--->
 
-## Suis quot vota
+## Hello!
 
-Ea _furtique_ risere fratres edidit terrae magis. Colla tam mihi tenebat:
-miseram excita suadent es pecudes iam. Concilio _quam_ velatus posset ait quod
-nunc! Fragosis suae dextra geruntur functus vulgata.
-{{< /columns >}}
+My name is Alex Gebhard and I am a first year PhD student at the Computer Science Department at Marquette University.  I am a reseach assistant under the direction of [Dr. Dennis Brylow](https://www.cs.mu.edu/~brylow/). To see my current research projects, please click on one of the projects on the left sidebar!
 
+{{< /columns>}}
 
-## Tempora nisi nunc
+## Publications
+1. Dynamic Rate Limiting with TA-Bot in CS1, In Proceedings of the 54th ACM Technical Symposium on Computer Science Education (SIGCSE ’23), March 15-18, 2023, Toronto, Ontario, Canada. ACM, New York, NY, USA, 1 page. To appear.
 
-Lorem **markdownum** emicat gestu. Cannis sol pressit ducta. **Est** Idaei,
-tremens ausim se tutaeque, illi ulnis hausit, sed, lumina cutem. Quae avis
-sequens!
+## Professional Service
 
-    var panel = ram_design;
-    if (backup + system) {
-        file.readPoint = network_native;
-        sidebar_engine_device(cell_tftp_raster,
-                dual_login_paper.adf_vci.application_reader_design(
-                graphicsNvramCdma, lpi_footer_snmp, integer_model));
-    }
-
-## Locis suis novi cum suoque decidit eadem
-
-Idmoniae ripis, at aves, ali missa adest, ut _et autem_, et ab?
+1. 2023 SIGCSE Nifty Assignments Reviewer 
