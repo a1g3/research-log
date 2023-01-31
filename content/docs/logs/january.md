@@ -1,6 +1,12 @@
 # January 2023
 
-Buttons are styled links that can lead to local page or external link.
+## January 30th
+### DNS Measurement
+I presented my poster of my current work at the Marquette International Privacy Day Event. It went really well!  I got good questions on my feedback and future directions I can look into. I’m going to issue an update to the scanner for the February scan. By then I hope to scan from three geographical locations. 
+
+### TA-Bot
+Jack and I worked finished our presentation for the virtual SIGCSE participants over the weekend. We’re going to have Dr. Brylow review it before we submit it tomorrow. The next step is to design the poster. I plan to begin this upcoming weekend. 
+
 
 ## January 27th
 ### Compilers
