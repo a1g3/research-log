@@ -1,4 +1,18 @@
 # February 2023
+## February 11th
+### Embedded Xinu
+I continued to work on the trap handler assignment today.  I talked to Dr. Brylow and he suggested a flag indicating if the process has run yet.  Basically, when we call resched, if the process has already run, we set the mode to s-mode (since it must have been called from a trap).  If the process hasn't run before, we keep it's mode at u-mode.  This allows processes to start in u-mode and remain there until a system call occurs.  This fixes the issues mentioned in yesterday's log.  The solution is mostly working, however I need to figure out if the main process test cases run on should be a user or system-level process.  If we make it a user level process, then we should make system calls for all functions we want the testcases to run.  Creating it as a user mode process seems "more correct" since it's not a core part of the OS.  Either way, I'll have to make code mondifications tomorrow to support whatever decision we make.
+
+### TA-Bot
+Jack and I finished the poster for SIGCSE today.  The final poster (as of today) can be found [here](/~agebhard/ta-bot/ta-bot-sigcse-2023-poster.pdf).  We plan to print it next week so we can ensure the graphics look good.
+
+## February 10th
+### Embedded Xinu
+Today I worked on implementing the trap handler for the next assignment.  The trap handler is tricky because in the class version of Embedded Xinu we also have a seperate context switch file.  Both must be in sync to ensure we're in the correct mode (supervisor/user mode).  I have all the system calls working besides `user_yield()`.  `user_yield()` is tricky because the currently running process can switch in the middle of the trap.  If the trap handler switches modes from supervisor to user, and the context switch also switches modes, then the processor will end up in a state causing an Illegal Instruction exception (since we're trying to switch to user mode twice).  I haven't found a good fix for this yet, but I hope to tomorrow.
+
+### TA-Bot
+I worked with Jack today on the TA-Bot poster.  We need to submit it by tomorrow for the virtual SIGCSE participants.  We've got a rough draft done that we've showed Dr. Brylow.  We plan to make a few minor modifications before reviewing it one more time with him tomorrow.
+
 ## February 10th
 ### Compilers
 In our Compilers meeting today, we discussed fixing some bugs in Dr. Brylow's reference implementation.  One of the main bugs that he found last semester was having issues loading strings in long programs.  In the current implementation of our compiler, the compiler puts strings in the data section of the file.  This works for most programs, however when we run BinaryString, the linker gives an error.  Dr. Brylow narrowed it down to attempting to load the string with `ldr`.  What we found was `ldr` allows for a range of +/-4096 bytes from the program counter according to the *Instruction Set Assembly Guide for Armv7 and earlier Arm® architectures* section C2.47.  This offset will work for most programs, but for BinarySearch, the linker failed to link the file because the string was outside of 4096 bytes.  To fix this, he added `movt`/`mov` instructions for all strings.  Dr. Brylow wants us to add a heuristic to the compiler to detect if the string is more than 4096 bytes away from the program counter.  If so, use the `movt`/`mov` opcodes.  Otherwise default to the `ldr` opcode.
