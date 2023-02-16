@@ -1,12 +1,30 @@
 # February 2023
-## February 11th
+## February 15th
+### Embedded Xinu
+Today I finished implementing the switch between user and kernel level processes in Embedded Xinu.  I met with Dr. Brylow and we came up with a more elegant solution that doesn't require the use of flags like I mentioned in yesterday's update.  Instead we add the following lines in `ctxsw.S`:
+```armasm
+	beq t0, ra, switch
+	li t4, SSTATUS_S_MODE
+    csrc sstatus, t4
+	csrw sepc, t0
+
+	sret
+switch:
+	ret
+```
+We use a heuristic to test if the process is running for the first time.  If the process hasn't run before, then it's `pc` (in `t0`) and `ra` would be different.  `pc` and `ra` are the same if the process is returning from a context switch.  If the process has already run before, that means its coming from a trap.  If it's coming from a trap, the code calls `ret` to avoid calling `sret` twice like mentioned in yesterday's update.  If the process hasn't run before, then the S-mode bit must be cleared so the process can run in U-mode when `sret` is executed.  With this implementation, the process control block no longer needs to keep track of it's privilege. 
+
+### DNS Measurements
+I worked on writing more of the background section and related works of the paper.  I hope to have both sections finished by next weekend.  Tomorrow I plan on testing the latest changes to the DNS scanner and setting up two more scanner instances in the U.S. 
+
+## February 14th <3
 ### Embedded Xinu
 I continued to work on the trap handler assignment today.  I talked to Dr. Brylow and he suggested a flag indicating if the process has run yet.  Basically, when we call resched, if the process has already run, we set the mode to s-mode (since it must have been called from a trap).  If the process hasn't run before, we keep it's mode at u-mode.  This allows processes to start in u-mode and remain there until a system call occurs.  This fixes the issues mentioned in yesterday's log.  The solution is mostly working, however I need to figure out if the main process test cases run on should be a user or system-level process.  If we make it a user level process, then we should make system calls for all functions we want the testcases to run.  Creating it as a user mode process seems "more correct" since it's not a core part of the OS.  Either way, I'll have to make code mondifications tomorrow to support whatever decision we make.
 
 ### TA-Bot
 Jack and I finished the poster for SIGCSE today.  The final poster (as of today) can be found [here](/~agebhard/ta-bot/ta-bot-sigcse-2023-poster.pdf).  We plan to print it next week so we can ensure the graphics look good.
 
-## February 10th
+## February 13th
 ### Embedded Xinu
 Today I worked on implementing the trap handler for the next assignment.  The trap handler is tricky because in the class version of Embedded Xinu we also have a seperate context switch file.  Both must be in sync to ensure we're in the correct mode (supervisor/user mode).  I have all the system calls working besides `user_yield()`.  `user_yield()` is tricky because the currently running process can switch in the middle of the trap.  If the trap handler switches modes from supervisor to user, and the context switch also switches modes, then the processor will end up in a state causing an Illegal Instruction exception (since we're trying to switch to user mode twice).  I haven't found a good fix for this yet, but I hope to tomorrow.
 
