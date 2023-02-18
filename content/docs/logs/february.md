@@ -1,4 +1,14 @@
 # February 2023
+## February 17th
+### DNS Measurements
+I finished implementing code to retry the DNS request if the query fails due to a timeout.  In the January scan, there were about 50 domains that had a TCP timeout when scanning.  The new implementation tries two more times with the given query before giving up.  I've tested this on about 3,000 domains and there's no errors due to a timeout.  I've also setup another testing server in AWS's Virginia region.  Tomorrow, I hope to modify my Python code to run multiple threads to send out a query for every testing server. 
+
+## February 16th (Snow Day)
+### Embedded Xinu
+I worked on cleaning up the ARM version of Embedded Xinu.  After talking to Dr. Brylow, we are planning on supporting the ARM port along with the RISC-V port.  Our hope is to merge both the RISC-V source code and the ARM source code.  Both ports have different features which the other needs to implement before the merge.  The ARM port has multicore support and has the interactive shell.  The RISC-V port has memory protection and paging.  For the merge to fully work, we would need to have both ports in feature parity.  I hope to have both ports merged together by the beginning of the summer.  That way, we can focus on getting a new Embedded Xinu release out.  The next step is to get paging and memory protection supported in the ARM port.  Currently, I'm looking how to implement paging in ARM.
+
+For the RISC-V port, I was working on timer support for the Nezhas.  I've written code for the timer to count down from 10000.  The timer is working correctly (since I can see the value being decremented in the register), however I can't get it to generate an interrupt.  I've set up the PLIC and the appropriate RISC-V registers (`sie` and `mideleg`), but no interrupt is being triggered.  I'm not sure how to debug this.  I'm hoping to talk to Dr. Brylow on Monday about it.
+
 ## February 15th
 ### Embedded Xinu
 Today I finished implementing the switch between user and kernel level processes in Embedded Xinu.  I met with Dr. Brylow and we came up with a more elegant solution that doesn't require the use of flags like I mentioned in yesterday's update.  Instead we add the following lines in `ctxsw.S`:
